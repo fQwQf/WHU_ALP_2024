@@ -2,6 +2,7 @@
 
 int main() {
     int num = 2; // 从2开始检查
+    std::cout << num << " ";
     do {
         bool isPrime = true;
         int divisor = 2;
