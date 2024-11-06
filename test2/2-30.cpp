@@ -11,6 +11,7 @@ struct Date
 };
 int main()
 {
+    system("chcp 65001");
 	Date date;
 	cout << "请输入年、月、日、小时、分、秒：";
 	cin >> date.year >> date.month >> date.day >> date.hour >> date.minute>> date.second;

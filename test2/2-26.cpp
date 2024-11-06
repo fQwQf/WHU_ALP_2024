@@ -2,6 +2,8 @@
 using namespace std;
 int main()
 {
+    system("chcp 65001");
+
     int a;
     cout<<"请输入你的分数：";
     cin>>a;
