@@ -1,117 +1,254 @@
-### 练习1：函数定义和使用
+# 3-7
 
-#### 运行结果
-运行上述程序，输出结果应为：
-```
-5! is 120
-```
+完成函数，参数为两个unsigned short int型数，返回值为第一个参数除以第二个参数的结果，数据类型为short int；如果第二个参数为0，则返回值为-1。在主程序中实现输入输出。注意观察函数的参数传入传出、返回值。  
 
-#### 单步调试
-使用单步运行模式，跟踪到`fact`函数内部，可以看到形参`val`从5开始，每次循环减1，直到`val`小于等于1，此时`rec`的值为120。
+源码：
 
-#### 更换函数调用形式
-```c++
-fact("hello"); // 错误，类型不匹配
-fact(); // 错误，缺少参数
-fact(42,10,0); // 错误，参数过多
-fact(3.14); // 错误，类型不匹配
-```
-以上调用都会导致编译错误，因为它们与`fact`函数的定义不匹配。
-
-### 练习2：无返回值函数和引用参数
-
-#### 编写main函数
 ```c++
 #include <iostream>
+
 using namespace std;
 
-void swap(int &v1, int &v2) {
-    if(v1 == v2)
-        return;
-    int temp = v2;
-    v2 = v1;
-    v1 = temp;
-}
+short int devide(unsigned short int a,unsigned short int b)
+{   if (b!=0){
+        return a / b;
+    }else{
+        return -1;
+    }
+};
 
-int main() {
-    int a, b;
-    cout << "Enter two integers: ";
-    cin >> a >> b;
-    swap(a, a); // 无效果
-    cout << "After swap(a, a): a = "<< a << endl;
-    swap(a, b); // 交换a和b的值
-    cout << "After swap(a, b): a = "<< a << ", b = "<< b << endl;
+int main()
+{   unsigned short int a,b;
+    cout << "请输入a: ";
+    cin >> a ;
+    cout << "请输入b: ";
+    cin >> b ;
+    cout << "结果为: " << devide(a,b);
     return 0;
 }
 ```
 
-#### 单步调试
-使用单步调试功能，可以观察到：
-- `swap(a, a)`调用时，`a`的值没有变化。
-- `swap(a, b)`调用时，`a`和`b`的值发生了交换。
+运行结果：
 
-### 练习3：函数重载
+```bash
+┌──(fqwqf㉿LAPTOP-TQH90R00)-[/mnt/c/Users/fQwQf/Desktop/项目/WHU_ALP_2024/2024_10_28]
+└─$ g++ 3-7.cpp
 
-#### 运行结果
+┌──(fqwqf㉿LAPTOP-TQH90R00)-[/mnt/c/Users/fQwQf/Desktop/项目/WHU_ALP_2024/2024_10_28]
+└─$ ./a.out
+请输入a: 4
+请输入b: 0
+结果为: -1
+┌──(fqwqf㉿LAPTOP-TQH90R00)-[/mnt/c/Users/fQwQf/Desktop/项目/WHU_ALP_2024/2024_10_28]
+└─$ ./a.out
+请输入a: 6
+请输入b: 5
+结果为: 1
+```
+
+# 3-13
+
+递归的方法编写函数求 Fibonacci级数，公式为
+$$ F_n =F_{n-1}  +F_{n-2},(n>2),F_1=F_2=1 $$
+观察递归调用的过程。  
+
+源码：
 ```c++
-|x1| = 4
-|x2| = 5.5
-|x3| = 6
-```
-对于`Add`函数重载：
-```
-3+4=7
-3+4+5=12
-```
+#include <iostream>
 
-#### 调试观察
-使用调试功能，可以观察到：
-- `Add(a, b)`调用的是两个参数的版本。
-- `Add(a, b, c)`调用的是三个参数的版本。
+using namespace std;
 
-### 练习4：默认形参
+int Fibonacci(int n) {
+    if (n <= 1) return n;
+    return Fibonacci(n - 1) + Fibonacci(n - 2);
+}
 
-#### 运行结果
-```
-sum is:5050
-sum is:55
+int main() {
+    int n;
+    cout << "请输入n: ";
+    cin >> n;
+    cout << Fibonacci(n);
+    return 0;
+}
 ```
 
-#### 调试观察
+运行结果：
+```bash
+┌──(fqwqf㉿LAPTOP-TQH90R00)-[/mnt/c/Users/fQwQf/Desktop/项目/WHU_ALP_2024/2024_10_28]
+└─$ g++ 3-13.cpp
 
-使用调试功能，可以观察到：
+┌──(fqwqf㉿LAPTOP-TQH90R00)-[/mnt/c/Users/fQwQf/Desktop/项目/WHU_ALP_2024/2024_10_28]
+└─$ ./a.out
+请输入n: 2
+1
+┌──(fqwqf㉿LAPTOP-TQH90R00)-[/mnt/c/Users/fQwQf/Desktop/项目/WHU_ALP_2024/2024_10_28]
+└─$ ./a.out
+请输入n: 5
+5
+┌──(fqwqf㉿LAPTOP-TQH90R00)-[/mnt/c/Users/fQwQf/Desktop/项目/WHU_ALP_2024/2024_10_28]
+└─$ ./a.out 
+请输入n: 42
+267914296
+```
 
-- `sum(100)`调用时，`num`的值为100。
-- `sum()`调用时，`num`的值为默认值10。
+# 3-15
+写递归函数 getPower 计算$x^y$,在同一个程序中针对整型和实型实现两个重载的
+函数：
+```c++  
+int getPower(int x, int y); //整型版本，当y<0时，返回0  
+double getPower(double x,int y);  //实型版本  
+```
+在主程序中实现输入输出，分别输入一个整数a 和一个实数b作为底数，再输入一个
+整数m作为指数，输出$a^m$和$b^m$。另外请读者思考，如果在调用getPower 函数计算
+$a^m$时希望得到一个实型结果(实型结果表示范围更大，而且可以准确表示m<0时
+的结果)，该如何调用?注意观察递归调用的过程。
 
-### 练习5：默认形参
-
-#### 答案
-
-（1）错误，所有默认参数必须放在参数表的最后。
-（2）正确，缺省值必须出现在函数声明中。
-（3）正确，默认参数的声明必须出现在函数调用之前。
-（4）正确，实参值优先。
-（5）正确，如果某个参数省略，则其后的参数都应该省略而采用默认值。
-
-### 练习6：内联函数
-
-#### 运行结果
-
-对于`max`函数：
+源码：
 
 ```c++
-Input two data: 5 10
-The max is: 10
+#include <iostream>
+#include <cmath>
+using namespace std;
+
+int getPower(int x, int y){
+    return pow(x,y);
+}
+
+double getPower(double x,int y){
+    return pow(x,y);
+}
+
+
+int main(){
+    int a,m;
+    double b;
+    cout << "请依次输入a,b,m: ";
+    cin >> a >> b >> m;
+    cout << getPower(a,m) << endl;
+    cout << getPower(b,m) << endl;
+    return 0;
+}
 ```
 
-对于`Circle`函数：
+运行结果：
+
+```bash
+┌──(fqwqf㉿LAPTOP-TQH90R00)-[/mnt/c/Users/fQwQf/Desktop/项目/WHU_ALP_2024/2024_10_28]
+└─$ ./a.out
+请依次输入a,b,m: 3
+0.5
+2
+9
+0.25
+```
+
+显然，传入实数底数即可得到一个实型结果。
+
+# 3-10
+编写函数求两个整数的最大公约数和最小公倍数。要求两个整数以及结果在主函数中输入输出。  
+源码：
+```c++
+#include <iostream>
+using namespace std;
+
+int gcd(int a, int b) {//辗转相除法
+    int r;
+    while (b != 0) {
+        r = a % b;
+        a = b;
+        b = r;
+    }
+    return a;
+}
+
+int lcm(int a, int b) {
+    return a * b / gcd(a, b);
+}
+
+int main() {
+    int a, b;
+    cin >> a >> b;
+    cout << gcd(a, b) << endl;
+    cout << lcm(a, b) << endl;
+    return 0;
+}
+```
+
+运行结果：
+
+```bash
+┌──(fqwqf㉿LAPTOP-TQH90R00)-[/mnt/c/Users/fQwQf/Desktop/project/WHU_ALP_2024/experiment3]
+└─$ g++ 3-10.cpp
+
+┌──(fqwqf㉿LAPTOP-TQH90R00)-[/mnt/c/Users/fQwQf/Desktop/project/WHU_ALP_2024/experiment3]
+└─$ ./a.out
+5
+3
+1
+15
+
+┌──(fqwqf㉿LAPTOP-TQH90R00)-[/mnt/c/Users/fQwQf/Desktop/project/WHU_ALP_2024/experiment3]
+└─$ ./a.out
+8
+6
+2
+24
+
+┌──(fqwqf㉿LAPTOP-TQH90R00)-[/mnt/c/Users/fQwQf/Desktop/project/WHU_ALP_2024/experiment3]
+└─$ ./a.out
+6
+8
+2
+24
+```
+
+
+# 3-9
+编写函数判别一个整数是否是质数？要求在主函数中输入输出。
+
+源码：
 
 ```c++
-r=1area=3.1416
-r=2area=12.5664
-r=3area=28.2744
+#include <iostream>
+using namespace std;
+
+bool isPrime(int n) {
+    if (n <= 1) {
+        return false;
+    }
+    for (int i = 2; i * i <= n; i++) {
+        if (n % i == 0) {
+            return false;
+        }
+    }
+    return true;
+}
+
+int main() {
+    int num;
+    cout << "请输入一个整数：";
+    cin >> num;
+    if (isPrime(num)) {
+        cout << num << " 是质数。" << endl;
+    }else{
+        cout << num << " 不是质数。" << endl;
+    }
+}
 ```
 
-#### 内联函数使用示例
-内联函数的使用可以减少函数调用的开销，提高程序的执行效率。在上述例子中，`max`和`Circle`函数都被定义为内联函数，编译器会尝试将它们的调用替换为函数体本身，从而提高执行速度。
+运行结果：
+
+```bash
+┌──(fqwqf㉿LAPTOP-TQH90R00)-[/mnt/c/Users/fQwQf/Desktop/project/WHU_ALP_2024/experiment3]
+└─$ g++ 3-9.cpp
+
+┌──(fqwqf㉿LAPTOP-TQH90R00)-[/mnt/c/Users/fQwQf/Desktop/project/WHU_ALP_2024/experiment3]
+└─$ ./a.OUT
+请输入一个整数：4
+4 不是质数。
+
+┌──(fqwqf㉿LAPTOP-TQH90R00)-[/mnt/c/Users/fQwQf/Desktop/project/WHU_ALP_2024/experiment3]
+└─$ ./a.OUT
+请输入一个整数：23
+23 是质数。
+```
