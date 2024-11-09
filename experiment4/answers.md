@@ -2,7 +2,7 @@
 
 源码：
 
-```c++
+```cpp
 #include <iostream>
 #include <string>
 using namespace std;
@@ -72,7 +72,7 @@ int main() {
 4-13、定义一个Circle类，有数据成员radius（半径），成员函数getArea()，计算圆的面积。构造一个Circle的对象进行测试。  
 源码：
 
-```c++
+```cpp
 #include <iostream>
 using namespace std;
 
@@ -110,7 +110,7 @@ int main() {
 
 源码：
 
-```c++
+```cpp
 #include <iostream>
 using namespace std;
 
@@ -142,7 +142,7 @@ int main() {
 ```
 
 4-20、定义一个复数类Complex，使得下面的代码能够工作：  
-```c++
+```cpp
 Complex c1(3,5); //用复数3+5i初始化c1
 Complex c2=4.5; //用实数4.5初始化c2
 c1.add(c2)； //将c1和3c2相加，结果保存在c1中
@@ -151,7 +151,7 @@ c1.show(); //将c1输出（这时的结果应该是7.5+5i）
 
 源码：
 
-```c++
+```cpp
 #include <iostream>
 using namespace std;
 
@@ -202,7 +202,7 @@ int main(){
 
 源码：
 
-```c++
+```cpp
 #include <iostream>
 using namespace std;
 
@@ -272,7 +272,7 @@ i = 0, f = 0, c = a
 
 源码：
 
-```c++
+```cpp
 #include <iostream>
 using namespace std;
 
