@@ -119,16 +119,19 @@ int main() {
 
 ```cpp
 class Person{
-public:
-Person(const Persona right);
-~Person();
-private:
-char Name;
-int Age;
+    public:
+    Person(const Persona right);
+    ~Person();
+
+    private:
+    char Name;
+    int Age;
 };
 class ZRF:protected Person{};
-class SsH:private Person{};
+class SSH:private Person{};
 ```
+
+![4-16](4-16.png)
 
 ## 4-19
 
