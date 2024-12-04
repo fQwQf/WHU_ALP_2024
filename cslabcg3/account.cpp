@@ -1,5 +1,5 @@
 #include "account.h"
-#include <iostream>
+#include <bits/stdc++.h>
 
 SavingsAccount::SavingsAccount(int date, int id, double rate){
     this->id = id;
@@ -30,7 +30,7 @@ void SavingsAccount::withdraw(int date, double amount) {
 void SavingsAccount::settle(int date) {
     double interest = accumulate(date) * rate / 365; // 计算利息
     record(date, interest); // 将利息加入余额
-    std::cout << date << " #" << id << " " << interest << " " << balance << std::endl;
+    std::cout << date << " #" << id << " " << std::round(interest*100)/100 << " " << balance << std::endl;
 }
 
 void SavingsAccount::show() const {
