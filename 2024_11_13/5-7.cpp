@@ -1,5 +1,7 @@
 #include <iostream>
+#ifdef _WIN32
 #include <windows.h>
+#endif
 
 class Cat {
 public:
@@ -22,7 +24,11 @@ private:
 int Cat::numOfCats = 0;
 
 int main() {
+    
+    #ifdef _WIN32
     SetConsoleOutputCP(CP_UTF8);
+    #endif
+
     Cat cat1;
     Cat cat2;
     Cat cat3;

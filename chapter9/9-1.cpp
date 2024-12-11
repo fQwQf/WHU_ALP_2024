@@ -1,5 +1,8 @@
 #include <bits/stdc++.h>
+
+#ifdef _WIN32
 #include <windows.h>
+#endif
 
 template <class T> // 数组类模板定义
 class Array
@@ -125,8 +128,10 @@ float Array<T>::average()
 
 int main()
 {
+    #ifdef _WIN32
     SetConsoleOutputCP(CP_UTF8);
-
+    #endif
+    
     int n;
     std::cout << "请输入班级中的学生人数 N: ";
     std::cin >> n;

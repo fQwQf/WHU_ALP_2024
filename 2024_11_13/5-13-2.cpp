@@ -1,13 +1,17 @@
 #include <iostream>
 #include "5-13.h"
+#ifdef _WIN32
 #include <windows.h>
-
+#endif
 int main() {
     X x;
     Y y;
     Z z;
-    SetConsoleOutputCP(CP_UTF8);
 
+    #ifdef _WIN32
+    SetConsoleOutputCP(CP_UTF8);
+    #endif
+    
     std::cout << "初始值: " << x.get() << std::endl;
 
     y.g(&x);

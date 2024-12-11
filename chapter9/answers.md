@@ -270,3 +270,30 @@ PS C:\Users\fQwQf\Desktop\project\WHU_ALP_2024\chapter9> ./a.exe
 ## 9-13
 
 在标准C++类库中，双向队列类（deque）的成员函数deque::front()返回一个非空双向队列的第一个元素，deque::back()返回一个非空双向队列的最后一个元素。请构造一个字符型双向队列，体会上述几个成员函数的用法。
+
+源码：
+
+```cpp
+#include <bits/stdc++.h>
+
+int main(){
+    std::deque<char> d;
+    d.push_back('a');
+    d.push_back('b');
+    d.push_back('c');
+
+    std::cout << "First: " << d.front() << std::endl; // 输出第一个元素
+    std::cout << "last: " << d.back() << std::endl; // 输出最后一个元素
+
+    return 0;
+}
+```
+
+运行结果：
+
+```Powershell
+PS C:\Users\fQwQf\Desktop\project\WHU_ALP_2024\chapter9> clang++ 9-13.cpp
+PS C:\Users\fQwQf\Desktop\project\WHU_ALP_2024\chapter9> ./a.exe
+First: a
+last: c
+```
