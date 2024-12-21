@@ -1,4 +1,4 @@
-#include "LinkedList.h"
+#include "Link.h"
 #include <iostream>
 
 int main() {
@@ -21,8 +21,7 @@ int main() {
         B.next();
     }
 
-    std::cout << "List A after appending elements of list B:" << std::endl;
-    A.reset(); // Reset cursor to the beginning of list A
+    A.reset(); 
     while (!A.endOfList()) {
         std::cout << A.data() << " ";
         A.next();

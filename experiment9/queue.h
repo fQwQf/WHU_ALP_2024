@@ -1,8 +1,7 @@
-// Queue.h
 #ifndef QUEUE_H
 #define QUEUE_H
 
-#include "LinkedList.h"
+#include "Link.h"
 
 template<typename T>
 class Queue {
@@ -33,4 +32,4 @@ private:
     LinkedList<T> list; // 使用 LinkedList 作为底层数据结构
 };
 
-#endif // QUEUE_H
+#endif
