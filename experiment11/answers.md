@@ -158,6 +158,184 @@ T.unsetf(ios::unitbuf);
 
 编写程序，用二进制文件打开指定的一个文件，在每一行前加行号。
 
+file.txt：
+
+```txt
+你说得对，
+但是《Rust》是由 Mozilla 自主研发的一款全新零开销抽象编程语言。
+语言发生在一个被称作「RAII」的资源管理世界，
+在这里，退出作用域的对象将被授予「drop」方法，回收资源之力。
+你将扮演一位名为「Ferris」的神秘角色在编码的旅行中邂逅形状各异、生命周期独特的变量们，
+和它们一起击败强大的编译错误，找回失散的内存安全——
+同时，逐步发掘「Servo」的真相。
+```
+
+源码：
+
+```cpp
+#include <iostream>
+#include <fstream>
+#include <vector>
+#include <string>
+
+int main() {
+    std::string filename = "file.txt"; // 指定要打开的文件名
+    std::ifstream input_file(filename, std::ios::binary); // 以二进制方式打开文件进行读取
+    std::vector<std::string> lines; // 用于存储带行号的内容
+
+    if (!input_file) {
+        std::cerr << "无法打开文件" << std::endl;
+        return 1;
+    }
+
+    std::string line;
+    int line_number = 1;
+    while (std::getline(input_file, line)) {
+        lines.push_back(std::to_string(line_number) + " " + line); // 在每一行前加行号
+        ++line_number;
+    }
+
+    input_file.close(); // 关闭输入文件
+
+    // 重新以二进制方式打开文件进行写入（这将清空原文件内容）
+    std::ofstream output_file(filename, std::ios::binary | std::ios::trunc);
+    if (!output_file) {
+        std::cerr << "无法打开文件进行写入" << std::endl;
+        return 1;
+    }
+
+    // 将带有行号的内容写回文件
+    for (const auto& numbered_line : lines) {
+        output_file.write(numbered_line.c_str(), numbered_line.size());
+        output_file.put('\n'); // 添加换行符
+    }
+
+    output_file.close(); // 关闭输出文件
+
+    return 0;
+}
+```
+
+运行结果：
+
+```bash
+┌──(fqwqf㉿LAPTOP-TQH90R00)-[/mnt/c/Users/fQwQf/Desktop/project/WHU_ALP_2024/experiment11]
+└─$ g++ 11-2.cpp
+
+┌──(fqwqf㉿LAPTOP-TQH90R00)-[/mnt/c/Users/fQwQf/Desktop/project/WHU_ALP_2024/experiment11]
+└─$ ./a.out
+```
+
+file.txt:
+
+```txt
+1 你说得对，
+2 但是《Rust》是由 Mozilla 自主研发的一款全新零开销抽象编程语言。
+3 语言发生在一个被称作「RAII」的资源管理世界，
+4 在这里，退出作用域的对象将被授予「drop」方法，回收资源之力。
+5 你将扮演一位名为「Ferris」的神秘角色在编码的旅行中邂逅形状各异、生命周期独特的变量们，
+6 和它们一起击败强大的编译错误，找回失散的内存安全——
+7 同时，逐步发掘「Servo」的真相。
+```
+
 ## 11-3
 
 使用实验10中的学生类数组，输入数据，显示出来，使用I/O流把此数组的内容写入磁盘文件，再显示出文件内容。
+
+源码：
+
+```cpp
+#include <iostream>
+#include <fstream>
+#include <vector>
+
+class Student {
+public:
+    std::string name;
+    int age;
+    double grade;
+
+    Student() : name(""), age(0), grade(0.0) {}
+
+    Student(const std::string& name, int age, double grade)
+        : name(name), age(age), grade(grade) {}
+
+    friend std::ostream& operator<<(std::ostream& os, const Student& student) {
+        os << student.name << " " << student.age << " " << student.grade;
+        return os;
+    }
+
+    friend std::istream& operator>>(std::istream& is, Student& student) {
+        is >> student.name >> student.age >> student.grade;
+        return is;
+    }
+};
+
+int main() {
+    std::vector<Student> students;
+    std::string filename = "students.txt";
+
+    // 输入学生数据
+    std::cout << "Enter student data (name age grade):" << std::endl;
+    Student temp;
+    while (std::cin >> temp) {
+        students.push_back(temp);
+        if (std::cin.peek() == '\n') break; // 假设一行输入表示结束
+    }
+
+    // 显示学生数据
+    std::cout << "\nEntered student data:" << std::endl;
+    for (const auto& student : students) {
+        std::cout << student << std::endl;
+    }
+
+    // 写入文件
+    std::ofstream out_file(filename, std::ios::binary);
+    if (!out_file) {
+        std::cerr << "Cannot open file for writing." << std::endl;
+        return 1;
+    }
+    for (const auto& student : students) {
+        out_file << student << std::endl;
+    }
+    out_file.close();
+
+    // 从文件读取并显示内容
+    std::ifstream in_file(filename, std::ios::binary);
+    if (!in_file) {
+        std::cerr << "Cannot open file for reading." << std::endl;
+        return 1;
+    }
+    std::cout << "\nContent from the file:" << std::endl;
+    while (in_file >> temp) {
+        std::cout << temp << std::endl;
+    }
+    in_file.close();
+
+    return 0;
+}
+```
+
+运行结果：
+
+```bash
+┌──(fqwqf㉿LAPTOP-TQH90R00)-[/mnt/c/Users/fQwQf/Desktop/project/WHU_ALP_2024/experiment11]
+└─$ g++ 11-3.cpp
+
+┌──(fqwqf㉿LAPTOP-TQH90R00)-[/mnt/c/Users/fQwQf/Desktop/project/WHU_ALP_2024/experiment11]
+└─$ ./a.out
+Enter student data (name age grade):
+fQwQf 114 514
+
+Entered student data:
+fQwQf 114 514
+
+Content from the file:
+fQwQf 114 514
+```
+
+students.txt:
+
+```txt
+fQwQf 114 514
+```
