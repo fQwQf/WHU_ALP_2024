@@ -176,5 +176,6 @@ int main(){
 
 ┌──(fqwqf㉿LAPTOP-TQH90R00)-[/mnt/c/Users/fQwQf/Desktop/project/WHU_ALP_2024/chapter12]
 └─$ ./a.out
+捕获异常: fn1()
 fn1()
 ```
